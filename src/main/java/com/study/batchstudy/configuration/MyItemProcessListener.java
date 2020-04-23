@@ -9,11 +9,12 @@ public class MyItemProcessListener implements ItemProcessListener<User, User> {
 
   @Override
   public void beforeProcess(User item) {
-
+    log.info("beforeProcess");
   }
 
   @Override
   public void afterProcess(User item, User result) {
+    log.info("afterProcess");
 
   }
 

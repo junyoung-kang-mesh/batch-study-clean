@@ -15,7 +15,7 @@ spring:
 #  profiles: mysql
   datasource:
     hikari:
-      jdbc-url: jdbc:mysql://localhost:3306/spring_batch
+      jdbc-url: jdbc:mysql://localhost:3306/batch_study
       username: root
       password: rootroot
       driver-class-name: com.mysql.jdbc.Driver
