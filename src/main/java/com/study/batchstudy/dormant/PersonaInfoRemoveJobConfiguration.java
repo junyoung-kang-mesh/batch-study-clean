@@ -70,7 +70,7 @@ public class PersonaInfoRemoveJobConfiguration {
         .processor(itemProcessor()).listener(new MyItemProcessListener())
         .writer(personalInfoItemWriter()).listener(new MyItemWritListener())
         .listener(myChunkListener())
-        .listener(promotionListener())
+//        .listener(promotionListener())
         .build();
   }
 
@@ -89,8 +89,6 @@ public class PersonaInfoRemoveJobConfiguration {
   }
 
 
-  @Bean
-  @StepScope
   public ItemProcessor<User, User> itemProcessor() {
     return new MyItemProcessor(personalInfoService);
   }
@@ -114,13 +112,13 @@ public class PersonaInfoRemoveJobConfiguration {
     return new MySkipPolicy(20);
   }
 
-  @Bean
-  public ExecutionContextPromotionListener promotionListener() {
-    ExecutionContextPromotionListener executionContextPromotionListener = new ExecutionContextPromotionListener();
-    // 데이터 공유를 위해 사용될 key값을 미리 빈에 등록해주어야 합니다.
-    executionContextPromotionListener.setKeys(new String[]{"MY_KEY"});
-
-    return executionContextPromotionListener;
-  }
+//  @Bean
+//  public ExecutionContextPromotionListener promotionListener() {
+//    ExecutionContextPromotionListener executionContextPromotionListener = new ExecutionContextPromotionListener();
+//    // 데이터 공유를 위해 사용될 key값을 미리 빈에 등록해주어야 합니다.
+//    executionContextPromotionListener.setKeys(new String[]{"usernames"});
+//
+//    return executionContextPromotionListener;
+//  }
 
 }
