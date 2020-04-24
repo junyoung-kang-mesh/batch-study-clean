@@ -14,8 +14,6 @@ import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;
 
 @Slf4j
-@Component
-@StepScope
 public class MyItemProcessor implements ItemProcessor<User, User> , StepExecutionListener {
 
   private StepExecution stepExecution;
@@ -36,7 +34,7 @@ public class MyItemProcessor implements ItemProcessor<User, User> , StepExecutio
   }
 
   /**
-   * stepExecution 을 멤버변수로 쓸수있게 함
+   * initialize stepExecution
    * @param stepExecution
    */
   @Override

@@ -19,9 +19,7 @@ import org.springframework.batch.core.configuration.annotation.JobBuilderFactory
 import org.springframework.batch.core.configuration.annotation.JobScope;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepScope;
-import org.springframework.batch.core.listener.ExecutionContextPromotionListener;
 import org.springframework.batch.core.step.skip.SkipPolicy;
-import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.database.JpaItemWriter;
 import org.springframework.batch.item.database.JpaPagingItemReader;
 import org.springframework.context.annotation.Bean;
@@ -89,7 +87,10 @@ public class PersonaInfoRemoveJobConfiguration {
   }
 
 
-  public ItemProcessor<User, User> itemProcessor() {
+
+  @Bean
+  @StepScope
+  public MyItemProcessor itemProcessor() {
     return new MyItemProcessor(personalInfoService);
   }
 

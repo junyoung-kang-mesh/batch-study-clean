@@ -15,12 +15,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-//@SpringBatchTest
 @SpringBootTest
 public class BatchLauncher {
 
   @Autowired JobLauncher jobLauncher;
-  @Autowired  Job personalInfoRemoveJob;
+  @Autowired Job personalInfoRemoveJob;
 
   @Test
   public void hello()
