@@ -8,9 +8,10 @@ import com.study.batchstudy.configuration.MySkipPolicy;
 import com.study.batchstudy.tasklet.MyTasklet;
 import com.study.batchstudy.user.domain.PersonalInfoService;
 import com.study.batchstudy.user.domain.User;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.OptimisticLockException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.batch.core.ItemReadListener;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
@@ -24,9 +25,7 @@ import org.springframework.batch.item.database.JpaItemWriter;
 import org.springframework.batch.item.database.JpaPagingItemReader;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import javax.batch.api.chunk.listener.ItemWriteListener;
-import javax.persistence.EntityManagerFactory;
+import org.springframework.retry.backoff.BackOffPolicy;
 
 @Slf4j // log 사용을 위한 lombok 어노테이션
 @RequiredArgsConstructor // 생성자 DI를 위한 lombok 어노테이션
@@ -65,11 +64,11 @@ public class PersonaInfoRemoveJobConfiguration {
         .get(STEP_NAME)
         .<User, User>chunk(chunkSize)
         .faultTolerant()
+        .skipPolicy(new MySkipPolicy(1000))
+        .retry(OptimisticLockException.class).retryLimit(10000)
         .reader(personalInfoItemReader()).listener(new MyItemReadListenerListener())
         .processor(itemProcessor()).listener(new MyItemProcessListener())
         .writer(personalInfoItemWriter()).listener(new MyItemWritListener())
-        .faultTolerant()
-        .skipPolicy(mySkipPolicy())
         .listener(myChunkListener())
         .listener(promotionListener())
         .build();

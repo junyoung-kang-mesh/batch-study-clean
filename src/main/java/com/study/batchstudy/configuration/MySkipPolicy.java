@@ -17,7 +17,7 @@ public class MySkipPolicy implements SkipPolicy {
   @Override
   public boolean shouldSkip(Throwable t, int skipCount) throws SkipLimitExceededException {
 
-    if (t instanceof OptimisticLockException || t instanceof IllegalArgumentException) {
+    if (t instanceof IllegalAccessException || t instanceof IllegalArgumentException) {
       if (skipCount < MAX_SKIP_COUNT) {
         log.warn("예외가 발생했지만 MAX_SKIP_COUNT 에 도달하지 않아 skip 합니다. {}/{} --{}", skipCount, MAX_SKIP_COUNT, t.getMessage());
         return true;
