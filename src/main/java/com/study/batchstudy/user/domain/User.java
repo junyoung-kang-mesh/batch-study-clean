@@ -1,17 +1,20 @@
 package com.study.batchstudy.user.domain;
 
+import java.time.Instant;
 import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Version;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+@Table(name = "user")
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -25,9 +28,13 @@ public class User {
 
   private Integer day;
 
+  @Column(name = "token_refreshed_at")
+  private Instant tokenRefreshedAt;
+
   public User(String name, Integer day) {
     this.name = name;
     this.day = day;
+    this.tokenRefreshedAt = Instant.now();
   }
 
 

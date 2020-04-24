@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.ItemReadListener;
 
 @Slf4j
-public class MyItemReadListenerListener implements ItemReadListener<User> {
+public class MyItemReadListenerListener implements ItemReadListener<Long> {
 
   @Override
   public void beforeRead() {
@@ -14,14 +14,14 @@ public class MyItemReadListenerListener implements ItemReadListener<User> {
   }
 
   @Override
-  public void afterRead(User item) {
-    log.info("afterRead  id:{}", item.getId());
+  public void afterRead(Long item) {
+    log.info("afterRead  id:{}", item);
 
   }
 
   @Override
   public void onReadError(Exception ex) {
-    log.info("onReadError");
+    log.info("onReadError", ex);
 
   }
 }

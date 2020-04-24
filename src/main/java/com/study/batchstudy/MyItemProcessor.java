@@ -2,8 +2,10 @@ package com.study.batchstudy;
 
 import com.study.batchstudy.user.domain.PersonalInfoService;
 import com.study.batchstudy.user.domain.User;
+import com.study.batchstudy.user.domain.UserRepository;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.StepExecution;
@@ -18,18 +20,17 @@ public class MyItemProcessor implements ItemProcessor<User, User> , StepExecutio
 
   private StepExecution stepExecution;
   private final PersonalInfoService personalInfoService;
+  private final UserRepository userRepository;
 
-  public MyItemProcessor(PersonalInfoService personalInfoService) {
+  public MyItemProcessor(PersonalInfoService personalInfoService, UserRepository userRepository) {
     this.personalInfoService = personalInfoService;
+    this.userRepository = userRepository;
   }
 
   @Override
   public User process(User item) throws Exception {
-    log.info("userId : {}", item.getId());
+    log.info("userId : {}", item);
     personalInfoService.removePersonalInfo(item);
-
-    List<String> usernames = getUserNameList();
-    usernames.add(item.getName());
     return item;
   }
 
