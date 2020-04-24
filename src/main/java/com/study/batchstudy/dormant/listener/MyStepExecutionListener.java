@@ -1,4 +1,4 @@
-package com.study.batchstudy.configuration;
+package com.study.batchstudy.dormant.listener;
 
 import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.StepExecution;

@@ -1,4 +1,4 @@
-package com.study.batchstudy.configuration;
+package com.study.batchstudy.dormant.listener;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.ChunkListener;

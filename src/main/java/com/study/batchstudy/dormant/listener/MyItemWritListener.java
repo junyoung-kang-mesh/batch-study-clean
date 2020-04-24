@@ -1,4 +1,4 @@
-package com.study.batchstudy.configuration;
+package com.study.batchstudy.dormant.listener;
 
 import com.study.batchstudy.user.domain.User;
 import lombok.extern.slf4j.Slf4j;

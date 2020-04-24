@@ -1,6 +1,5 @@
-package com.study.batchstudy.configuration;
+package com.study.batchstudy.dormant.listener;
 
-import javax.persistence.OptimisticLockException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.step.skip.SkipLimitExceededException;
 import org.springframework.batch.core.step.skip.SkipPolicy;

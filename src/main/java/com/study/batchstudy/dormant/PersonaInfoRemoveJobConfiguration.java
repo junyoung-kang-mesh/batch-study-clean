@@ -1,11 +1,12 @@
-package com.study.batchstudy.job;
+package com.study.batchstudy.dormant;
 
-import com.study.batchstudy.configuration.MyChunkListener;
-import com.study.batchstudy.configuration.MyItemProcessListener;
-import com.study.batchstudy.configuration.MyItemReadListenerListener;
-import com.study.batchstudy.configuration.MyItemWritListener;
-import com.study.batchstudy.configuration.MySkipPolicy;
-import com.study.batchstudy.tasklet.MyTasklet;
+import com.study.batchstudy.MyItemProcessor;
+import com.study.batchstudy.dormant.listener.MyChunkListener;
+import com.study.batchstudy.dormant.listener.MyItemProcessListener;
+import com.study.batchstudy.dormant.listener.MyItemReadListenerListener;
+import com.study.batchstudy.dormant.listener.MyItemWritListener;
+import com.study.batchstudy.dormant.listener.MySkipPolicy;
+import com.study.batchstudy.dormant.tasklet.MyTasklet;
 import com.study.batchstudy.user.domain.PersonalInfoService;
 import com.study.batchstudy.user.domain.User;
 import javax.persistence.EntityManagerFactory;
@@ -25,7 +26,6 @@ import org.springframework.batch.item.database.JpaItemWriter;
 import org.springframework.batch.item.database.JpaPagingItemReader;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.retry.backoff.BackOffPolicy;
 
 @Slf4j // log 사용을 위한 lombok 어노테이션
 @RequiredArgsConstructor // 생성자 DI를 위한 lombok 어노테이션
@@ -90,22 +90,9 @@ public class PersonaInfoRemoveJobConfiguration {
 
 
   @Bean
+  @StepScope
   public ItemProcessor<User, User> itemProcessor() {
-    return user -> {
-      log.info("userId : {}", user.getId());
-
-      // null 반환시 filter_count +1
-//      if (true) {
-//        throw new OptimisticLockException("exception! id : " + user.getId());
-//      }
-
-//      if (user.getId().equals(13L)) {
-//        throw new IllegalArgumentException("exception! id : " + user.getId());
-//      }
-
-      personalInfoService.removePersonalInfo(user);
-      return user;
-    };
+    return new MyItemProcessor(personalInfoService);
   }
 
 
