@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import lombok.AccessLevel;
@@ -31,6 +32,8 @@ public class User {
   @Column(name = "token_refreshed_at")
   private Instant tokenRefreshedAt;
 
+  private String desc;
+
   public User(String name, Integer day) {
     this.name = name;
     this.day = day;
@@ -39,6 +42,10 @@ public class User {
 
 
   public void deleteName() {
-    name = UUID.randomUUID().toString();
+    name = "#####";
+  }
+
+  public void setTokenRefreshedAt(Instant now) {
+    this.tokenRefreshedAt = now;
   }
 }

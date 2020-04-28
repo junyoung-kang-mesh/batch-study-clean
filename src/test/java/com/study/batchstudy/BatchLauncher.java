@@ -19,7 +19,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class BatchLauncher {
 
   @Autowired JobLauncher jobLauncher;
-  @Autowired Job personalInfoRemoveJob;
+  @Autowired Job myJob;
 
   @Test
   public void hello()
@@ -27,7 +27,7 @@ public class BatchLauncher {
     JobParametersBuilder builder = new JobParametersBuilder();
     builder.addString("day", String.valueOf(Math.random()));
 
-    JobExecution exe = jobLauncher.run(personalInfoRemoveJob, builder.toJobParameters());
+    JobExecution exe = jobLauncher.run(myJob, builder.toJobParameters());
     System.out.println(exe);
   }
 }
